@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      id="viewport"
+      name="viewport"
+      content="width=device-width, initial-scale=1, interactive-widget=resizes-content"
+    />
+
+    <meta name="title" content="ADS-Chat" />
+
+    <meta name="theme-color" content="#000000" />
+    <meta property="og:title" content="ADS-Chat" />
+
+    <meta
+      name="og:description"
+      content="ADS-Chat is the official chat website of the Archer Detective Society, ADS Films, ADS Books and ADSCRAFT / The Porcupine Network. 
+This project uses the up-and coming chat platform called Nerimity, which this is a client of. (We are likely to rename soon)"
+    />
+
+    <meta
+      name="description"
+      content="ADS-Chat is the official chat website of the Archer Detective Society, ADS Films, ADS Books and ADSCRAFT / The Porcupine Network. 
+This project uses the up-and coming chat platform called Nerimity, which this is a client of. (We are likely to rename soon)
+"
+    />
+
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <link rel="icon" type="image/png" href="/favicon.ico" />
+
+    <!-- Needed to verify if a Google Drive file is not modified and to get metadata and additional info. -->
+    <script src="https://apis.google.com/js/api.js"></script>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+
+    <script src="/src/index.tsx" type="module"></script>
+  </body>
+  <script>
+    // Remove PWA worker. Caused issues with updating Nerimity (I think?)
+    navigator.serviceWorker?.getRegistrations().then((workers) => {
+      workers.forEach((worker) => {
+        if (worker.active?.scriptURL === "https://nerimity.com/sw.js") {
+          worker.unregister().then(() => {
+            console.log("Removed worker sw.js");
+            location.reload();
+          });
+        }
+      });
+    });
+  </script>
+</html>
